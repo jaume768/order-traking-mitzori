@@ -10,7 +10,7 @@ Esta guía te ayudará a desplegar el sistema de seguimiento de pedidos en AWS c
    - 20GB de almacenamiento
 
 2. **Dominio configurado**
-   - Subdominio: `orders.mitzori.com`
+   - Subdominio: `traking.mitzori.com`
    - Registro A apuntando a la IP pública de tu EC2
 
 3. **Puertos abiertos en Security Group**
@@ -84,11 +84,11 @@ SECRET_KEY=TU_CLAVE_SUPER_SECRETA_AQUI_GENERALA_RANDOM
 DATABASE_NAME=pedidos_prod
 DATABASE_USER=pedidos_user
 DATABASE_PASSWORD=UNA_CONTRASEÑA_MUY_SEGURA
-ALLOWED_HOSTS=orders.mitzori.com
-CORS_ALLOWED_ORIGINS=https://orders.mitzori.com
+ALLOWED_HOSTS=traking.mitzori.com
+CORS_ALLOWED_ORIGINS=https://traking.mitzori.com
 
 # Next.js
-NEXT_PUBLIC_API_URL=https://orders.mitzori.com/api
+NEXT_PUBLIC_API_URL=https://traking.mitzori.com/api
 NODE_ENV=production
 ```
 
@@ -102,7 +102,7 @@ python3 -c "import secrets; print(secrets.token_urlsafe(50))"
 Antes de continuar, verifica que el dominio apunte correctamente:
 
 ```bash
-dig orders.mitzori.com +short
+dig traking.mitzori.com +short
 # Debe mostrar la IP pública de tu EC2
 ```
 
@@ -141,9 +141,9 @@ Ingresa:
 
 Una vez desplegado, accede a:
 
-- **Frontend público**: https://orders.mitzori.com
-- **Panel de Admin**: https://orders.mitzori.com/admin
-- **API REST**: https://orders.mitzori.com/api
+- **Frontend público**: https://traking.mitzori.com
+- **Panel de Admin**: https://traking.mitzori.com/admin
+- **API REST**: https://traking.mitzori.com/api
 
 ## 🔒 Seguridad SSL
 
@@ -257,7 +257,7 @@ docker system prune -a --volumes
 
 1. Verifica que el dominio apunte a la IP correcta:
    ```bash
-   dig orders.mitzori.com +short
+   dig traking.mitzori.com +short
    ```
 
 2. Verifica logs de Caddy:
@@ -328,7 +328,7 @@ Instala el agente de CloudWatch para monitorear:
 
 - [ ] Instancia EC2 creada y corriendo
 - [ ] Docker y Docker Compose instalados
-- [ ] DNS configurado (orders.mitzori.com → IP EC2)
+- [ ] DNS configurado (traking.mitzori.com → IP EC2)
 - [ ] Security Group con puertos 80, 443, 22 abiertos
 - [ ] `.env.prod` configurado con valores de producción
 - [ ] SECRET_KEY generada aleatoriamente
@@ -344,7 +344,7 @@ Instala el agente de CloudWatch para monitorear:
 Si tienes problemas, revisa:
 1. Logs de Docker: `docker-compose logs`
 2. Estado de servicios: `docker-compose ps`
-3. Conectividad: `curl https://orders.mitzori.com`
+3. Conectividad: `curl https://traking.mitzori.com`
 
 ---
 

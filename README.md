@@ -271,7 +271,7 @@ Para desplegar en AWS con SSL automático, consulta la guía completa:
 ### Resumen rápido:
 
 1. **Instancia EC2** con Ubuntu 22.04
-2. **DNS configurado**: `orders.mitzori.com` → IP de tu EC2
+2. **DNS configurado**: `traking.mitzori.com` → IP de tu EC2
 3. **Puertos abiertos**: 80, 443, 22
 4. **Despliegue con un comando**:
    ```bash
@@ -279,9 +279,9 @@ Para desplegar en AWS con SSL automático, consulta la guía completa:
    ```
 
 ### Acceso en producción:
-- **Frontend**: https://orders.mitzori.com
-- **Admin**: https://orders.mitzori.com/admin
-- **API**: https://orders.mitzori.com/api
+- **Frontend**: https://traking.mitzori.com
+- **Admin**: https://traking.mitzori.com/admin
+- **API**: https://traking.mitzori.com/api
 
 Caddy gestiona automáticamente los certificados SSL con Let's Encrypt.
 

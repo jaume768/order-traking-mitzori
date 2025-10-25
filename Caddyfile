@@ -1,6 +1,6 @@
-# Caddyfile - Configuración de Caddy para orders.mitzori.com
+# Caddyfile - Configuración de Caddy para traking.mitzori.com
 
-orders.mitzori.com {
+traking.mitzori.com {
     # Habilita compresión
     encode gzip
 
