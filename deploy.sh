@@ -30,7 +30,7 @@ fi
 
 # Detener contenedores actuales
 echo -e "${YELLOW}Deteniendo contenedores actuales...${NC}"
-docker-compose -f docker-compose.prod.yml down
+docker-compose -f docker-compose.prod.yml --env-file .env.prod down
 
 # Limpiar imágenes antiguas (opcional)
 echo -e "${YELLOW}Limpiando imágenes antiguas...${NC}"
@@ -38,11 +38,11 @@ docker image prune -f
 
 # Construir nuevas imágenes
 echo -e "${YELLOW}Construyendo nuevas imágenes...${NC}"
-docker-compose -f docker-compose.prod.yml build --no-cache
+docker-compose -f docker-compose.prod.yml --env-file .env.prod build --no-cache
 
 # Iniciar servicios
 echo -e "${YELLOW}Iniciando servicios...${NC}"
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
 
 # Esperar a que los servicios estén listos
 echo -e "${YELLOW}Esperando a que los servicios estén listos...${NC}"
@@ -50,7 +50,7 @@ sleep 10
 
 # Verificar estado
 echo -e "${GREEN}Verificando estado de los contenedores...${NC}"
-docker-compose -f docker-compose.prod.yml ps
+docker-compose -f docker-compose.prod.yml --env-file .env.prod ps
 
 echo ""
 echo -e "${GREEN}=================================="
@@ -63,5 +63,5 @@ echo "  - Admin: https://traking.mitzori.com/admin"
 echo "  - API: https://traking.mitzori.com/api"
 echo ""
 echo "Para ver logs:"
-echo "  docker-compose -f docker-compose.prod.yml logs -f"
+echo "  docker-compose -f docker-compose.prod.yml --env-file .env.prod logs -f"
 echo ""

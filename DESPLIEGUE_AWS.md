@@ -120,10 +120,10 @@ chmod +x deploy.sh
 
 ```bash
 # Construir e iniciar
-docker-compose -f docker-compose.prod.yml up -d --build
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
 
 # Ver logs
-docker-compose -f docker-compose.prod.yml logs -f
+docker-compose -f docker-compose.prod.yml --env-file .env.prod logs -f
 ```
 
 ### 7. Crear superusuario de Django
@@ -161,32 +161,32 @@ Caddy automáticamente:
 
 ```bash
 # Todos los servicios
-docker-compose -f docker-compose.prod.yml logs -f
+docker-compose -f docker-compose.prod.yml --env-file .env.prod logs -f
 
 # Solo backend
-docker-compose -f docker-compose.prod.yml logs -f backend
+docker-compose -f docker-compose.prod.yml --env-file .env.prod logs -f backend
 
 # Solo frontend
-docker-compose -f docker-compose.prod.yml logs -f frontend
+docker-compose -f docker-compose.prod.yml --env-file .env.prod logs -f frontend
 
 # Solo Caddy
-docker-compose -f docker-compose.prod.yml logs -f caddy
+docker-compose -f docker-compose.prod.yml --env-file .env.prod logs -f caddy
 ```
 
 ### Ver estado de contenedores
 
 ```bash
-docker-compose -f docker-compose.prod.yml ps
+docker-compose -f docker-compose.prod.yml --env-file .env.prod ps
 ```
 
 ### Reiniciar servicios
 
 ```bash
 # Reiniciar todo
-docker-compose -f docker-compose.prod.yml restart
+docker-compose -f docker-compose.prod.yml --env-file .env.prod restart
 
 # Reiniciar solo un servicio
-docker-compose -f docker-compose.prod.yml restart backend
+docker-compose -f docker-compose.prod.yml --env-file .env.prod restart backend
 ```
 
 ### Backup de la base de datos
@@ -209,9 +209,9 @@ git pull origin main
 ./deploy.sh
 
 # O manualmente:
-docker-compose -f docker-compose.prod.yml down
-docker-compose -f docker-compose.prod.yml build --no-cache
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker-compose.prod.yml --env-file .env.prod down
+docker-compose -f docker-compose.prod.yml --env-file .env.prod build --no-cache
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
 ```
 
 ## 🛠️ Comandos Útiles
