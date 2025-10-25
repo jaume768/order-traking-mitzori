@@ -1,0 +1,52 @@
+# Caddyfile - Configuración de Caddy para orders.mitzori.com
+
+orders.mitzori.com {
+    # Habilita compresión
+    encode gzip
+
+    # Logs
+    log {
+        output file /var/log/caddy/orders.log
+        format json
+    }
+
+    # Frontend Next.js (ruta principal)
+    reverse_proxy / frontend:3000 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    # Backend Django Admin y API
+    reverse_proxy /admin* backend:8000 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    reverse_proxy /api* backend:8000 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    reverse_proxy /static* backend:8000 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    # Headers de seguridad
+    header {
+        # Habilitar HSTS
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        # Prevenir XSS
+        X-Content-Type-Options "nosniff"
+        # Prevenir clickjacking
+        X-Frame-Options "SAMEORIGIN"
+        # Política de referrer
+        Referrer-Policy "strict-origin-when-cross-origin"
+        # Eliminar header de Caddy
+        -Server
+    }
+}
