@@ -1,11 +1,15 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from .models import Order, OrderHistory
 from .serializers import OrderSerializer, OrderTrackingSerializer
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class OrderViewSet(viewsets.ReadOnlyModelViewSet):
     """
     ViewSet para consultar pedidos.
@@ -14,6 +18,7 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     lookup_field = 'order_number'
+    permission_classes = [AllowAny]
     
     @action(detail=False, methods=['get'], url_path='track/(?P<order_number>[^/.]+)')
     def track(self, request, order_number=None):
