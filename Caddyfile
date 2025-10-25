@@ -17,7 +17,7 @@ traking.mitzori.com {
         header_up X-Forwarded-Proto {scheme}
     }
 
-    # Backend Django Admin y API
+    # Backend Django Admin, API y archivos estáticos
     reverse_proxy /admin* backend:8000 {
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_host}
@@ -31,6 +31,12 @@ traking.mitzori.com {
     }
 
     reverse_proxy /static* backend:8000 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    reverse_proxy /media* backend:8000 {
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_host}
         header_up X-Forwarded-Proto {scheme}
