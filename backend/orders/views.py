@@ -12,8 +12,8 @@ from .serializers import OrderSerializer, OrderTrackingSerializer
 @method_decorator(csrf_exempt, name='dispatch')
 class OrderViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    ViewSet para consultar pedidos.
-    Endpoint público para que los usuarios rastreen sus pedidos.
+    ViewSet for querying orders.
+    Public endpoint for users to track their orders.
     """
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -23,7 +23,7 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['get'], url_path='track/(?P<order_number>[^/.]+)')
     def track(self, request, order_number=None):
         """
-        Endpoint para rastrear un pedido por su número.
+        Endpoint to track an order by its number.
         GET /api/orders/track/{order_number}/
         """
         try:
@@ -32,14 +32,14 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(serializer.data)
         except Order.DoesNotExist:
             return Response(
-                {'error': 'Pedido no encontrado'},
+                {'error': 'Order not found'},
                 status=status.HTTP_404_NOT_FOUND
             )
     
     @action(detail=False, methods=['post'])
     def search(self, request):
         """
-        Endpoint para buscar un pedido.
+        Endpoint to search for an order.
         POST /api/orders/search/
         Body: {"order_number": "ABC123"}
         """
@@ -47,7 +47,7 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
         
         if not order_number:
             return Response(
-                {'error': 'Número de pedido requerido'},
+                {'error': 'Order number is required'},
                 status=status.HTTP_400_BAD_REQUEST
             )
         
@@ -57,6 +57,6 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(serializer.data)
         except Order.DoesNotExist:
             return Response(
-                {'error': 'Pedido no encontrado. Verifica el número de pedido.'},
+                {'error': 'Order not found. Please verify your order number.'},
                 status=status.HTTP_404_NOT_FOUND
             )
