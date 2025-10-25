@@ -3,6 +3,10 @@ FROM node:18-alpine AS builder
 # Establecer directorio de trabajo
 WORKDIR /app
 
+# Variables de entorno necesarias para el build
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 # Copiar package files
 COPY package*.json ./
 

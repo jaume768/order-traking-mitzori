@@ -53,6 +53,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
+      args:
+        - NEXT_PUBLIC_API_URL=https://traking.mitzori.com/api
     container_name: pedidos_frontend_prod
     restart: unless-stopped
     environment:
